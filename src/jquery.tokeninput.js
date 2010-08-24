@@ -22,7 +22,7 @@ $.fn.tokenInput = function (url, options) {
         jsonContainer: null,
         method: "GET",
         contentType: "json",
-        queryParam: "q",
+        queryParam: "/",
         onResult: null
     }, options);
 
@@ -542,7 +542,7 @@ $.TokenList = function (input, settings) {
         if(cached_results) {
             populate_dropdown(query, cached_results);
         } else {
-			var queryStringDelimiter = settings.url.indexOf("?") < 0 ? "?" : "&";
+			var queryStringDelimiter = "";//settings.url.indexOf("?") < 0 ? "?" : "&";
 			var callback = function(results) {
 			  if($.isFunction(settings.onResult)) {
 			      results = settings.onResult.call(this, results);
@@ -552,9 +552,9 @@ $.TokenList = function (input, settings) {
             };
             
             if(settings.method == "POST") {
-			    $.post(settings.url + queryStringDelimiter + settings.queryParam + "=" + query, {}, callback, settings.contentType);
+			    $.post(settings.url + queryStringDelimiter + settings.queryParam + "" + query, {}, callback, settings.contentType);
 		    } else {
-		        $.get(settings.url + queryStringDelimiter + settings.queryParam + "=" + query, {}, callback, settings.contentType);
+		        $.get(settings.url + queryStringDelimiter + settings.queryParam + "" + query, {}, callback, settings.contentType);
 		    }
         }
     }
